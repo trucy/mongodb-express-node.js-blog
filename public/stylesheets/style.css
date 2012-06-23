@@ -21,8 +21,7 @@ a {
 }
 #articles {
   text-align: left;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 320px;
 }
 #articles .article {
@@ -42,4 +41,21 @@ a {
 #articles .article .title .body {
   background-color: #fff3bf;
   padding: 20px;
+}
+#newpost {
+  width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+input#editArticleTitle {
+  background-color: #d2eced;
+  margin-bottom: 10px;
+}
+textarea#editArticleBody {
+  background-color: #fff3bf;
+}
+input#editArticleTitle,
+textarea#editArticleBody {
+  border: 1px solid #f1f1f1;
+  min-width: 320px;
 }
