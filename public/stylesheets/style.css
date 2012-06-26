@@ -4,6 +4,8 @@ body {
   text-align: center;
   text-stroke: 1px rgba(255,255,255,0.1);
   color: #555;
+  width: 320px;
+  margin: 0 auto;
 }
 h1,
 h2 {
@@ -44,8 +46,7 @@ a {
 }
 #newpost {
   width: 320px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto;
 }
 input#editArticleTitle {
   background-color: #d2eced;
@@ -58,4 +59,39 @@ input#editArticleTitle,
 textarea#editArticleBody {
   border: 1px solid #f1f1f1;
   min-width: 320px;
+}
+.article .created_at {
+  display: none;
+}
+.article input[type =text] {
+  width: 300px;
+  margin-left: 16px;
+  border: 1px solid #f1f1f1;
+}
+.article input[type =button] text-align left,
+.article input[type =submit] text-align left {
+  float: right;
+}
+.article textarea {
+  width: 300px;
+  height: 90px;
+}
+.body {
+  padding: 20px;
+}
+.comment {
+  padding: 20px;
+}
+.comment .comment {
+  padding: 0;
+}
+#comment-form {
+  margin-top: 20px;
+}
+#comment-form form #comment-container {
+  margin-top: 10px;
+}
+#comment-form form #comment-container textarea#addCommentComment {
+  border: 1px solid #f1f1f1;
+  margin-left: 16px;
 }
