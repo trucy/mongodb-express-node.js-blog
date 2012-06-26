@@ -50,6 +50,9 @@ ArticleProvider.prototype.save = function(articles, callback) {
           articles = [articles];
         for( var i =0;i< articles.length;i++ ) {
           article = articles[i];
+					text_to_replace = articles[i].body;
+					var paragraphs = article.body.split('\r\n\r\n');
+					article.body = paragraphs;
           article.created_at = new Date();
           if( article.comments === undefined ) article.comments = [];
           for(var j =0;j< article.comments.length; j++) {
@@ -62,6 +65,20 @@ ArticleProvider.prototype.save = function(articles, callback) {
         });
       }
     });
+};
+
+ArticleProvider.prototype.delete = function(articleId, callback) {
+	this.getCollection(function(error, article_collection) {
+		if(error) callback(error);
+		else {
+			article_collection.remove(
+				{_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(articleId)},
+				function(error, article){
+					if(error) callback(error);
+					else callback(null, article)
+				});
+			}
+	});
 };
 
 ArticleProvider.prototype.addCommentToArticle = function(articleId, comment, callback) {

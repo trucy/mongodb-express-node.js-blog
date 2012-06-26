@@ -69,6 +69,12 @@ app.get('/blog/:id', function(req, res) {
     });
 });
 
+app.post('/blog/:id/delete', function(req, res) {
+		articleProvider.delete(req.param('_id'), function(error, docs) {
+			res.redirect('/')
+		});
+});
+
 app.post('/blog/addComment', function(req, res) {
     articleProvider.addCommentToArticle(req.param('_id'), {
         person: req.param('person'),

@@ -37,6 +37,15 @@ a {
   padding-left: 20px;
   background-color: #d2eced;
 }
+#articles .article .title input#delete {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  color: #d55b5b;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
 #articles .article .title a {
   line-height: 40px;
 }

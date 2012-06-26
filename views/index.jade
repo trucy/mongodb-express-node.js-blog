@@ -3,8 +3,13 @@ h1= title
   - each article in articles
     div.article
       div.created_at= article.created_at
-      div.title 
+      div.title
+        form( method="post", action="/blog/:id/delete")
+          input(name="_id", type="hidden", value=article._id.toHexString())
+          input(id="delete", value="x", type="submit")
         a(href="/blog/"+article._id)!= article.title
-        div.body= article.body
+        div.body
+          - each paragraph in article.body
+            p= paragraph
 #newpost
   a(href="/blog/new")!= 'new post'
