@@ -17,6 +17,7 @@ ArticleProvider.prototype.getCollection= function(callback) {
   });
 };
 
+// find all blog posts in database
 ArticleProvider.prototype.findAll = function(callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
@@ -29,7 +30,7 @@ ArticleProvider.prototype.findAll = function(callback) {
     });
 };
 
-
+// find a blog post in the database by its object ID
 ArticleProvider.prototype.findById = function(id, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
@@ -42,6 +43,7 @@ ArticleProvider.prototype.findById = function(id, callback) {
     });
 };
 
+// save a (new) blog post
 ArticleProvider.prototype.save = function(articles, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
@@ -67,6 +69,31 @@ ArticleProvider.prototype.save = function(articles, callback) {
     });
 };
 
+// update a blog post
+ArticleProvider.prototype.update = function(articleId, articles, callback) {
+    this.getCollection(function(error, article_collection) {
+      if( error ) callback(error);
+      else {
+        for( var i =0;i< articles.length;i++ ) {
+          article = articles[i];
+					text_to_replace = articles[i].body;
+					var paragraphs = article.body.split('\r\n\r\n');
+					article.body = paragraphs;
+				}
+	
+        article_collection.update(
+					{_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(articleId)},
+					articles,
+					function(error, articles) {
+						if(error) callback(error);
+						else callback(null, articles)       
+					});
+      }
+    });
+};
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+// remove a blog post from the database
 ArticleProvider.prototype.delete = function(articleId, callback) {
 	this.getCollection(function(error, article_collection) {
 		if(error) callback(error);

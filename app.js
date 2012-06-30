@@ -33,7 +33,7 @@ var articleProvider = new ArticleProvider('localhost', 27017);
 
 app.get('/', function(req, res){
     articleProvider.findAll( function(error,docs){
-        res.render('index.jade', { 
+        res.render('index', { 
             locals: {
                 title: 'a simple blog',
                 articles:docs
@@ -43,7 +43,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/blog/new', function(req, res) {
-    res.render('blog_new.jade', { locals: {
+    res.render('blog_new', { locals: {
         title: 'new post'
     }
     });
@@ -60,7 +60,7 @@ app.post('/blog/new', function(req, res){
 
 app.get('/blog/:id', function(req, res) {
     articleProvider.findById(req.params.id, function(error, article) {
-        res.render('blog_show.jade',
+        res.render('blog_show',
         { locals: {
             title: article.title,
             article: article
@@ -69,6 +69,29 @@ app.get('/blog/:id', function(req, res) {
     });
 });
 
+// edit a blog post
+app.get('/blog/:id/edit', function(req, res) {
+	articleProvider.findById(req.param('_id'), function(error, article) {
+		res.render('blog_edit',
+		{ locals: {
+			title: article.title,
+			article: article
+		}
+		});
+	});
+});
+
+// update/save an edited blog post
+app.post('/blog/:id/save', function(req, res) {
+	articleProvider.update(req.param('_id'),{
+		title: req.param('title'),
+		body: req.param('body')
+	}, function(error, docs) {
+		res.redirect('/')
+	});
+});
+
+// delete a blog post
 app.post('/blog/:id/delete', function(req, res) {
 		articleProvider.delete(req.param('_id'), function(error, docs) {
 			res.redirect('/')

@@ -25,9 +25,17 @@ a
     .created_at
         display none
     .title
+      input#edit
+        border none
+        background transparent
+        float right
+        margin-top 14px
+        font-size 10px
+        color #555
+        cursor pointer
       input#delete
         float right
-        margin-top 10px
+        margin-top 13px
         margin-right 10px
         color #D55B5B
         border none
@@ -41,18 +49,26 @@ a
       .body
         background-color #fff3bf
         padding 20px
+#content
+  margin-top 30px
 #newpost
   width 320px
   margin 20px auto
 input#editArticleTitle
   background-color #D2ECED
   margin-bottom 10px
-textarea#editArticleBody
+  margin-top 5px
+#editArticleBody
+  margin-top 5px
   background-color #FFF3BF
+  height 300px
 input#editArticleTitle
-textarea#editArticleBody
+#editArticleBody
   border 1px solid #f1f1f1
   min-width 320px
+  text-align left
+#edit
+  cursor pointer
 .article
   .created_at
     display none
