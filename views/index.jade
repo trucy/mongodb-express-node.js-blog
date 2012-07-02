@@ -11,6 +11,9 @@ h1= title
           input(name ="_id", type="hidden", value=article._id.toHexString())
           input(id="edit", value="edit", type="submit")
         a(href="/blog/"+article._id)!= article.title
-        div.body= article.body
+        div.body
+          - for (var i = 0; i <= article.body.length; i++) {
+            p= article.body[i] 
+          - }
 #newpost
   a(href="/blog/new")!= 'new post'
