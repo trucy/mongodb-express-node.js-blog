@@ -5,7 +5,13 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 ArticleProvider = function(host, port) {
-  this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
+	if (process.env.MONGOHQ_URL) { // connect to mongoHQ
+		this.db = Db.connect(process.env.MONGOHQ_URL, {auto_reconnect: true, noOpen: true});
+	}
+	else {
+		this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
+	}
+
   this.db.open(function(){});
 };
 
