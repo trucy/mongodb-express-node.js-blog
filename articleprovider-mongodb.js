@@ -6,13 +6,30 @@ var ObjectID = require('mongodb').ObjectID;
 
 ArticleProvider = function(host, port) {
 	if (process.env.MONGOHQ_URL) { // connect to mongoHQ
-		this.db = Db.connect(process.env.MONGOHQ_URL, {auto_reconnect: true, noOpen: true});
+		this.db = Db.connect(process.env.MONGOHQ_URL, {db: {auto_reconnect: true}, noOpen: true, uri_decode_auth: true});
+		this.db.open(function(err, db) {
+			if (err == null) {
+				var regex = new RegExp("^mongo(?:db)?://(?:|([^@/]*)@)([^@/]*)(?:|/([^?]*)(?:|\\?([^?]*)))$");
+				var match = process.env.MONGOHQ_URL.match(regex);
+				var auth = match[1].split(':', 2);
+				auth[0] = decodeURIComponent(auth[0]);
+				auth[1] = decodeURIComponent(auth[1]);
+				db.authenticate(auth[0], auth[1], function(err, success) {
+					if (err) {
+						console.error(err);
+					} else {
+						// worked >:O
+					}
+				});
+			} else {
+				console.error(err);
+			}
+		});
 	}
 	else {
 		this.db= new Db('node-mongo-blog', new Server(host, port, {auto_reconnect: true}, {}));
+		this.db.open(function(){});
 	}
-
-  this.db.open(function(){});
 };
 
 
